@@ -46,7 +46,7 @@ export function LinksTable({ links, onDeleteLink }: LinksTableProps) {
     }
   };
 
-  const formatDate = (date: string) => {
+  const formatDate = (date: string | Date) => {
     return new Date(date).toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'short',
