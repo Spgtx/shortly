@@ -36,7 +36,7 @@ A production-ready URL shortener built with Next.js 14, featuring comprehensive 
 
 1. Clone the repository:
 ```bash
-git clone <repository-url>
+git clone https://github.com/Spgtx/shortly.git
 cd shortly
 npm install
 ```
