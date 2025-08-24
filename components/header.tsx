@@ -76,7 +76,7 @@ export function Header() {
               </DropdownMenu>
             </>
           ) : (
-            <Button onClick={() => signIn('google')} size="sm">
+            <Button onClick={() => signIn('google', { callbackUrl: '/dashboard' })} size="sm">
               Sign In
             </Button>
           )}
