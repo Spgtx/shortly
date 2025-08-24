@@ -75,7 +75,16 @@ export class AnalyticsService {
     return {
       totalClicks: totalClicks || 0,
       dailyStats: dailyStats || [],
-      recentClicks: recentClicks || [],
+      recentClicks: recentClicks.map(c => ({
+        id: c.id,
+        linkId: c.linkId,
+        userAgent: c.userAgent,
+        referer: c.referer,
+        ipAddress: c.ipAddress,
+        country: c.country,
+        city: c.city,
+        clickedAt: c.clickedAt,
+      })),
     };
   }
 
