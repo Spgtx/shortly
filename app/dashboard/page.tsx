@@ -26,29 +26,41 @@ export default function DashboardPage() {
     if (status === 'loading') return;
 
     if (!session) {
-      // If no session, redirect to login (or home)
       router.replace('/');
       return;
     }
 
-    // Fetch links only if session exists
     fetchLinks();
   }, [session, status]);
 
-  const fetchLinks = async () => {
-    try {
-      setLoading(true);
-      const response = await fetch('/api/links');
-      if (!response.ok) throw new Error('Failed to fetch links');
-      const data = await response.json();
-      setLinks(data);
-    } catch (error) {
-      console.error(error);
-      toast.error('Failed to load links');
-    } finally {
-      setLoading(false);
-    }
-  };
+const fetchLinks = async () => {
+  try {
+    setLoading(true);
+    const response = await fetch('/api/links');
+    if (!response.ok) throw new Error('Failed to fetch links');
+    const linksData = await response.json();
+
+    setLinks(linksData);
+
+    const totalLinks = linksData.length;
+    const totalClicks = linksData.reduce((sum: number, link: Link) => sum + (link.clickCount || 0), 0);
+    const recentClicks = linksData
+      .filter((link: Link) => {
+        const weekAgo = new Date();
+        weekAgo.setDate(weekAgo.getDate() - 7);
+        return new Date(link.updatedAt) >= weekAgo;
+      })
+      .reduce((sum: number, link: Link) => sum + (link.clickCount || 0), 0);
+
+    setStats({ totalLinks, totalClicks, recentClicks });
+  } catch (error) {
+    console.error(error);
+    toast.error('Failed to load links');
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   const handleDeleteLink = async (linkId: string) => {
     try {
