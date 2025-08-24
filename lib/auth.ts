@@ -15,16 +15,17 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token.id = user.id; // set once after login
+        token.id = user.id;
       }
       return token;
     },
     async session({ session, token }) {
-      return {
-        ...session,
-        user: {
+      if (!session.user) session.user = {} as any;
+        return {
+          ...session,
+          user: {
           ...session.user,
-          id: token.id ?? '', // fallback if undefined
+          id: token?.id ?? null,
         },
       };
     },
