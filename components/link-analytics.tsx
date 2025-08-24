@@ -22,7 +22,6 @@ export function LinkAnalytics({ link, onBack }: LinkAnalyticsProps) {
       if (!link?.id) return;
       
       try {
-        console.log("Fetching analytics for link.id:", link.id);
         const response = await fetch(`/api/analytics/${link.id}`);
         if (response.ok) {
           const data = await response.json();

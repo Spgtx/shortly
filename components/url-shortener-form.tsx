@@ -35,6 +35,7 @@ export function UrlShortenerForm({ showAdvanced = false }: UrlShortenerFormProps
       const response = await fetch('/api/links', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify({
           originalUrl,
           customCode: customCode || undefined,
