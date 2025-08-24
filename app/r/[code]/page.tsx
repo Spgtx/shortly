@@ -1,5 +1,5 @@
-import { notFound, redirect } from 'next/navigation';
-import { linkService } from '@/lib/services/link-service';
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
 interface RedirectPageProps {
   params: {
@@ -7,45 +7,17 @@ interface RedirectPageProps {
   };
 }
 
-export default async function RedirectPage({ params }: RedirectPageProps) {
-  const { code } = params;
+export default function RedirectPage({ params }: RedirectPageProps) {
+  const router = useRouter();
 
-  try {
-    // Get the original URL using cache-first strategy
-    const originalUrl = await linkService.getLinkWithCache(code);
+  useEffect(() => {
+    router.push(`/api/r/${params.code}`);
+  }, [params.code, router]);
 
-    if (!originalUrl) {
-      notFound();
-    }
-
-    // Get link details for tracking
-    const link = await linkService.getLink(code);
-
-    if (link) {
-      // Fire async tracking (don't await to avoid slowing redirect)
-      fetch(`${process.env.NEXTAUTH_URL}/api/track-click`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          linkId: link.id,
-          userAgent: '', // Will be captured client-side if needed
-          referer: '', // Will be captured client-side if needed
-          ipAddress: '', // Will be captured server-side if needed
-        }),
-      }).catch(console.error);
-    }
-
-    // Redirect to original URL
-    redirect(originalUrl);
-  } catch (error) {
-    console.error('Redirect error:', error);
-    notFound();
-  }
-}
-
-export function generateMetadata({ params }: RedirectPageProps) {
-  return {
-    title: 'Redirecting...',
-    description: 'Shortly URL Shortener - Redirecting you to your destination',
-  };
+  return (
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50">
+      <h1 className="text-2xl font-bold mb-2">Redirecting...</h1>
+      <p className="text-gray-600">Hang tight! You’re being sent to your destination.</p>
+    </div>
+  );
 }
