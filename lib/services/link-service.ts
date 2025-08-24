@@ -36,41 +36,41 @@ export class LinkService {
       attempts++;
     }
 
-    const [link] = await this.dbClient.insert(links).values({
+    const [link] = await this.dbClient
+    .insert(links)
+    .values({
       userId: data.userId,
       originalUrl: normalizedUrl,
       shortCode,
       title: data.title,
       description: data.description,
       isPublic: data.isPublic || false,
-    }).returning();
+    })
+    .returning();
 
-    // Cache the new link
     await setCachedUrl(shortCode, normalizedUrl);
     
-    return link;
+    return link ?? null;
   }
 
   async getLink(shortCode: string): Promise<Link | null> {
-    return await this.dbClient.query.links.findFirst({
+    const link = await this.dbClient.query.links.findFirst({
       where: eq(links.shortCode, shortCode),
     });
+    return link ?? null;
   }
 
   async getLinkWithCache(shortCode: string): Promise<string | null> {
-    // Check cache first
     const cachedUrl = await getCachedUrl(shortCode);
     if (cachedUrl) {
       return cachedUrl;
     }
 
-    // Query database
     const link = await this.getLink(shortCode);
     if (!link) {
       return null;
     }
 
-    // Cache the result
     await setCachedUrl(shortCode, link.originalUrl);
     return link.originalUrl;
   }
