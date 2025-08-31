@@ -118,13 +118,6 @@ The application uses a well-structured PostgreSQL schema:
 
 ## Deployment
 
-This application is optimized for Vercel deployment:
-
-1. Push your code to GitHub
-2. Connect your repository to Vercel
-3. Add your environment variables in the Vercel dashboard
-4. Deploy automatically on push to main branch
-
 ## Contributing
 
 Contributions are welcome! Please read our contributing guidelines and submit pull requests for any improvements.
