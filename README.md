@@ -116,7 +116,6 @@ The application uses a well-structured PostgreSQL schema:
 - `GET /api/analytics/[id]` - Get link analytics
 - `POST /api/track-click` - Log click events
 
-## Deployment
 
 ## Contributing
 
