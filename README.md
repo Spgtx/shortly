@@ -15,13 +15,12 @@ A production-ready URL shortener built with Next.js, featuring comprehensive ana
 
 ## Tech Stack
 
-- **Frontend**: Next.js 14 (App Router), React, TypeScript
+- **Frontend**: Next.js (App Router), React, TypeScript
 - **UI Components**: Shadcn/UI, Tailwind CSS
 - **Authentication**: NextAuth.js with Google OAuth
 - **Database**: PostgreSQL (Neon) with Drizzle ORM
 - **Cache**: Redis (Upstash) for fast redirects
 - **Charts**: Recharts for analytics visualization
-- **Deployment**: Vercel-ready configuration
 
 ## Getting Started
 
@@ -68,6 +67,11 @@ npm run dev
 ```
 
 Visit `http://localhost:3000` to see the application.
+
+## 🚀 Live Demo
+
+[![Live Demo](https://img.shields.io/badge/Live-Demo-blue?style=for-the-badge)](https://shortly-lemon-rho.vercel.app/)
+
 
 ## Architecture
 
