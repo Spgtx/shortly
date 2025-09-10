@@ -1,6 +1,6 @@
 # Shortly - Advanced URL Shortener
 
-A production-ready URL shortener built with Next.js 14, featuring comprehensive analytics, user authentication, and a modern dashboard.
+A production-ready URL shortener built with Next.js, featuring comprehensive analytics, user authentication, and a modern dashboard.
 
 ## Features
 
@@ -119,7 +119,7 @@ The application uses a well-structured PostgreSQL schema:
 
 ## Contributing
 
-Contributions are welcome! Please read our contributing guidelines and submit pull requests for any improvements.
+Contributions are welcome!
 
 ## License
 
